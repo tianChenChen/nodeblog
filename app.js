@@ -23,7 +23,7 @@ app.use('/admin',require('./router/admin'));
 app.use('/api',require('./router/api'));
 app.use('/',require('./router/main'));
 
-mongoose.connect('mongodb://localhost:27018/blog', function(err){
+mongoose.connect('mongodb://localhost:27017/blog', function(err){
   if (err) {
     console.log('数据库链接失败')
   } else {

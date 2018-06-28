@@ -1,6 +1,7 @@
 $(function(){
   var $loginBox = $('#loginBox')
   var $registerBox = $('#registerBox')
+  var $userdiv = $('#userdiv')
 
   //切换到注册
   $loginBox.find('a.colMint').click(function(){
@@ -25,8 +26,42 @@ $(function(){
         repassword: $registerBox.find('[name="repassword"]').val()
       },
       dataType:'json',
-      success:function(data){
+      success:function(result){
         console.log(result)
+        $registerBox.find('.colWarning').html(result.message);
+        if (!result.code) {
+          setTimeout(function(){
+            $loginBox.show()
+            $registerBox.hide();
+          }, 1000)
+        }
+      }
+    })
+  })
+
+  //登录
+  $loginBox.find('button').on('click',function(){
+    $.ajax({
+      url:'/api/user/login',
+      type:'post',
+      dataType:'json',
+      data: {
+        username: $loginBox.find('[name="username"]').val(),
+        password: $loginBox.find('[name="password"]').val()
+      },
+      success:function(result){
+        console.log(result)
+        $loginBox.find('.colWarning').html(result.message);
+        if (!result.code) {
+          setTimeout(function(){
+            $loginBox.hide()
+            $userdiv.show();
+
+            $('.userInfo').html(result.userInfo.username)
+            $('.info').html('您好，欢迎您来到我的博客')
+            
+          }, 1000)
+        }
       }
     })
   })
