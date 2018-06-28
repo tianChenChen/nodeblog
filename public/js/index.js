@@ -1,7 +1,7 @@
 $(function(){
   var $loginBox = $('#loginBox')
   var $registerBox = $('#registerBox')
-  var $userdiv = $('#userdiv')
+  var $logoutBtn = $('#logoutBtn')
 
   //切换到注册
   $loginBox.find('a.colMint').click(function(){
@@ -53,14 +53,21 @@ $(function(){
         console.log(result)
         $loginBox.find('.colWarning').html(result.message);
         if (!result.code) {
-          setTimeout(function(){
-            $loginBox.hide()
-            $userdiv.show();
+          window.location.reload()
+        }
+      }
+    })
+  })
 
-            $('.userInfo').html(result.userInfo.username)
-            $('.info').html('您好，欢迎您来到我的博客')
-            
-          }, 1000)
+  // 退出
+  $logoutBtn.on('click',function(){
+    $.ajax({
+      type:'get',
+      url:'/api/user/logout',
+      success: function(result){
+        console.log(result)
+        if (!result.code) {
+          window.location.reload()
         }
       }
     })

@@ -82,7 +82,7 @@ router.post('/user/register', function(req, res, next){
 
 })
 
-router.post('/user/login',function(req, res, next){
+router.post('/user/login', function(req, res, next){
   console.log(req.body, 'jj')
   var username = req.body.username;
   var password =  req.body.password;
@@ -120,8 +120,17 @@ router.post('/user/login',function(req, res, next){
       username: result.username,
       _id: result._id
     }
+    req.cookies.set('userInfo', JSON.stringify({
+      username: result.username,
+      _id: result._id
+    }))
     res.json(responseData)
   })
+})
+
+router.get('/user/logout', function(req, res, next){
+  req.cookies.set('userInfo', null)
+  res.json(responseData)
 })
 
 module.exports = router

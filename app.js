@@ -6,8 +6,11 @@ var swig = require('swig');
 var mongoose = require('mongoose');
 // 加载body-parser,用来处理post提交过来的数据
 var bodyParser = require('body-parser');
+// 加载cookies 模块
+var cookies = require('cookies')
 //创建app应用 => NODEJS Http.createServer();
 var app = express();
+var User = require('./models/user')
 
 app.use('/public', express.static(__dirname + '/public'));
 
@@ -18,6 +21,32 @@ app.set('view engine','html');
 swig.setDefaults({cache: false});
 
 app.use(bodyParser.urlencoded({extended:true}));
+
+// 设置cookie
+app.use(function(req, res, next){
+  req.cookies = new cookies(req, res);
+
+  console.log(req.cookies.get('userInfo'));
+  // 捷信登录用户的
+  req.userInfo = {}
+  if (req.cookies.get('userInfo')) {
+    try{
+      req.userInfo = JSON.parse(req.cookies.get('userInfo'))
+
+      // 获取当前登录用户的类型，是否是管理元
+      User.findById(req.userInfo._id).then(function(userInfo){
+        req.userInfo.isAdmin =  Boolean(userInfo.isAdmin)
+        next();
+      })
+    }catch(e) {
+      next();
+    }
+  } else {
+    next()
+  }
+
+  
+})
 
 app.use('/admin',require('./router/admin'));
 app.use('/api',require('./router/api'));
