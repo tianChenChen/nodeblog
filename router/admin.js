@@ -21,10 +21,20 @@ router.get('/', function(req, res, next){
 // 用户管理
 router.get('/user', function(req, res){
 
-  // 从数据库中读取所有的用户数据
-  User.find().then(function(users){
-    console.log(users)
+  // 限制获取数据条数 limit()
+  // skip(2): 忽略数据的条数
+  /*
+    每条显示2调
+    1：1-2 skip:0 ->(当前页-1)*linmit
+    2： 3-4 skip:2
+  */
 
+  // 从数据库中读取所有的用户数据
+  console.log(req.query, 'shh')
+  var page = req.query.page || 1;
+  var limit = 1;
+  var skip = (page -1)*limit
+  User.find().limit(limit).skip(skip).then(function(users){
     res.render('admin/user_index', {
       userInfo: req.userInfo,
       users: users
