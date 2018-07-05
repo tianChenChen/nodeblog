@@ -37,7 +37,7 @@ router.get('/user', function(req, res){
   User.find().limit(limit).skip(skip).then(function(users){
     res.render('admin/user_index', {
       userInfo: req.userInfo,
-      users: users
+      users: users,
     })
   })
 
