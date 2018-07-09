@@ -31,15 +31,34 @@ router.get('/user', function(req, res){
 
   // 从数据库中读取所有的用户数据
   console.log(req.query, 'shh')
-  var page = req.query.page || 1;
+  var page = Number(req.query.page || 1);
   var limit = 1;
   var skip = (page -1)*limit
-  User.find().limit(limit).skip(skip).then(function(users){
-    res.render('admin/user_index', {
-      userInfo: req.userInfo,
-      users: users,
+  var pages = 0
+  User.count().then(function(count){
+    console.log(count)
+    // 计算总页数
+    pages = parseInt(count / limit);
+    // 取值不能超过pages
+    page = Math.min(page, pages);
+    // 取值不能小于1
+    page = Math.max(page, 1);
+
+    var skip = (page - 1) * limit
+
+    User.find().limit(limit).skip(skip).then(function(users){
+      res.render('admin/user_index', {
+        userInfo: req.userInfo,
+        users: users,
+        
+        count: count,
+        pages: pages,
+        limit: limit,
+        page: page
+      })
     })
   })
+  
 
   
 })
