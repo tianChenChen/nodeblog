@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
+
 var User =  require('../models/user')
+var Category =  require('../models/Category')
 
 router.use(function(req, res, next){
   if (!req.userInfo.isAdmin) {
@@ -59,7 +61,33 @@ router.get('/user', function(req, res){
     })
   })
   
+// 分类首页
+router.get('/category', function(req, res){
+  res.render('admin/category_index', {
+    userInfo: req.userInfo
+  })
+})
 
+// 分类添加
+router.get('/category/add', function(req, res){
+  res.render('admin/category_add', {
+    userInfo: req.userInfo
+  })
+})
+
+// 分类保存
+router.post('/category/add',function(req,res){
+
+  var name = req.body.name || '';
+
+  if (name == '') {
+    res.render('admin/error',{
+      userInfo: req.userInfo,
+      message: '名称不能空'
+    })
+  }
+
+})
   
 })
 
