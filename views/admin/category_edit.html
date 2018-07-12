@@ -2,14 +2,14 @@
 
 {% block main %}
 <div class="title_left">
-  <h3>分类添加 <small></small></h3>
+  <h3>分类编辑 <small></small></h3>
 </div>
 <div class="row">
   <div class="col-xs-12">
       <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
-              <h2>分类添加<small>Users</small></h2>
+              <h2>分类编辑<small>{{category.name}}</small></h2>
               <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -38,7 +38,7 @@
                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">分类名称 <span class="required">*</span>
                   </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="请输入分类名称" required="required" type="text">
+                    <input id="name" class="form-control col-md-7 col-xs-12" value="{{category.name}}" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="请输入分类名称" required="required" type="text">
                   </div>
                 </div>
                 <div class="ln_solid"></div>

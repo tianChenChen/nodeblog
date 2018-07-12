@@ -26,7 +26,6 @@ router.use(function(req, res, next){
     2.
 */
 router.post('/user/register', function(req, res, next){
-  console.log( 'eee', req.body )
 
   var username = req.body.username;
   var password = req.body.password;
@@ -60,7 +59,6 @@ router.post('/user/register', function(req, res, next){
   User.findOne({
     username:username
   }).then(function(userInfo){
-    console.log(userInfo)
     if (userInfo) {
       // 表示数据可中有该记录
       responseData.code = 4;
@@ -75,7 +73,6 @@ router.post('/user/register', function(req, res, next){
     });
     return user.save();
   }).then(function(newUserInfo){
-    console.log(newUserInfo);
     responseData.message = '注册成功';
     res.json(responseData)
   })
@@ -83,7 +80,6 @@ router.post('/user/register', function(req, res, next){
 })
 
 router.post('/user/login', function(req, res, next){
-  console.log(req.body, 'jj')
   var username = req.body.username;
   var password =  req.body.password;
 
@@ -108,7 +104,6 @@ router.post('/user/login', function(req, res, next){
     username: username,
     password: password
   }).then(function(result){
-    console.log(result, '有结果吗')
     if (!result) {
       responseData.code = 3
       responseData.message = '用户名或密码不正确'

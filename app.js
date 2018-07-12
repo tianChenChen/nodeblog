@@ -26,7 +26,6 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(function(req, res, next){
   req.cookies = new cookies(req, res);
 
-  console.log(req.cookies.get('userInfo'));
   // 捷信登录用户的
   req.userInfo = {}
   if (req.cookies.get('userInfo')) {
