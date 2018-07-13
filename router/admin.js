@@ -141,7 +141,6 @@ router.post('/category/add', function(req,res){
 router.get('/category/edit', function(req, res){
   // 获取要修改的分类的信息，并且用表单的形式展示出来
   var id =  req.query.id || '';
-  console.log(id, 'id')
   Category.findOne({
     _id: id
   }).then(function(category){
@@ -232,5 +231,19 @@ router.get('/category/delete',function(req,res){
   })
 })
 
+//内容首页
+router.get('/content', function(req,res){
+  res.render('admin/content_index',{
+    userInfo: req.userInfo,
+    // contents: req.body.contents
+  })
+})
+
+// 内容添加
+router.get('/content/add', function(req, res){
+  res.render('admin/content_add',{
+    userInfo: req.userInfo
+  })
+})
 
 module.exports = router
