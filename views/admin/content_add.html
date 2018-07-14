@@ -30,11 +30,13 @@
             <div class="x_content">
               <form class="form-horizontal form-label-left" novalidate method="post">
                 <div class="item form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">分类 <span class="required">*</span>
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="category">分类 <span class="required">*</span>
                   </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select class="form-control col-md-7 col-xs-12" name="title" placeholder="请选择" required="required" type="text">
-                      <option value="">2</option>
+                    <select class="form-control col-md-7 col-xs-12" name="category" id="category" placeholder="请选择" required="required" type="text">
+                      {% for item in categories %}
+                      <option value="{{item.id}}">{{item.name}}</option>
+                      {% endfor %}
                     </select>
                   </div>
                 </div>
@@ -43,31 +45,23 @@
                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">内容标题 <span class="required">*</span>
                   </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="title" placeholder="请输入内容标题" required="required" type="text">
+                    <input id="title" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="title" placeholder="请输入内容标题" required="required" type="text">
                   </div>
                 </div>
 
                 <div class="item form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">简介 <span class="required">*</span>
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">简介 <span class="required">*</span>
                   </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="title" placeholder="请输入内容标题" required="required" type="text">
+                    <textarea name="description" id="description" class="form-control col-md-7 col-xs-12" cols="30" rows="5" required="required"></textarea>
                   </div>
                 </div>
 
                 <div class="item form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">内容标题 <span class="required">*</span>
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="content">内容 <span class="required">*</span>
                   </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="title" placeholder="请输入内容标题" required="required" type="text">
-                  </div>
-                </div>
-
-                <div class="item form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">内容标题 <span class="required">*</span>
-                  </label>
-                  <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="title" placeholder="请输入内容标题" required="required" type="text">
+                    <textarea name="content" id="content" class="form-control col-md-7 col-xs-12" cols="30" rows="5" required="required"></textarea>
                   </div>
                 </div>
 
